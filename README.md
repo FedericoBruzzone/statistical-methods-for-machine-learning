@@ -1,4 +1,4 @@
-# Statistical Methods for Machine Learning Exam 
+# Statistical Methods for Machine Learning
 
 **Disclaimer: My recommendation is to thoroughly study all the papers provided by the professor and carefully review the proofs before consulting this repository. We do not assume responsibility for the correctness of the answers.**
 
