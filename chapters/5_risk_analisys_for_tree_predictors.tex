@@ -1,0 +1,47 @@
+\newpage
+\section{Risk Analysis for Tree Predictors}
+
+\begin{itemize}
+   
+    \item Write the upper bound on the estimation error of ERM run on a the class of complete binary tree predictors with at most $N$ nodes on $d$ binary features.\\
+
+        Knowing that $|\mathcal{H}_N| \leq (2de)^N$ obtained via $\frac{N-1}{2}$-th Catalan number, we can write the upper bound on the estimation error of ERM run on a the class of complete binary tree predictors with at most $N$ nodes on $d$ binary features as follows:
+        $$
+        \ell_{\mathcal{D}}(\hat{h}) \leq \ell_{\mathcal{D}}(h^{*}) + \sqrt{\frac{2}{m} \left(N(1 + \ln (2d)) + \ln \frac{2}{\delta} \right)}
+        $$
+
+        From that, we deduce that in this case a training set of size of order $N \ln d$ is enough to control the risk of $\hat{h} \in \mathcal{H}_N$.\\
+
+    \item Write the bound on the difference between risk and training error for an arbitrary complete binary tree classifier $h$ on $d$ binary features in terms of its number $N_h$ of nodes. Bonus points if you provide a short explanation on how this bound is obtained.\\
+    
+        \begin{equation}
+            \begin{split}
+                \ell_{D}(h) & \leq \ell_{S}(h) + \sqrt{\frac{1}{2m} \left(|\sigma(h)| + \ln \frac{2}{\delta} \right)}\\
+            \end{split}
+        \end{equation}
+
+        Hence, with Occam Razor given two predictor with the same training error the simpler (the shortest $|\sigma|$) is the best.\\ 
+
+        We upper bound the risk of a tree predictor $h$ by its training error plus a quantity $\epsilon_h$ that now depends on the size of the tree.
+
+        We introduce a function $w : \mathcal{H} \rightarrow [0, 1]$ and call $w(h)$ the weight of tree predictor $h$. We assume 
+        $$
+        \sum_{h \in \mathcal{H}^{}} w(h) \leq 1
+        $$
+        And now choosing 
+        $$
+        \epsilon_h = \sqrt{\frac{1}{2m} \left(\ln \frac{1}{w(h)} + \ln \frac{2}{\delta} \right)}
+        $$
+        we get that 
+        $$
+        \mathbb{P} \left( \exists h \in \mathcal{H} : |\ell_{\mathcal{D}}(h) - \ell_{S}(h)| > \epsilon_h \right) \leq \sum_{h \in \mathcal{H}} \delta w(h) \leq \delta 
+        $$
+        A consequence of this analysis is that, with probabilty at least $1 - \delta$ with respect to the training set random draw, we have
+        \begin{equation}
+            \begin{split}
+            \ell_{D}(h) & \leq \ell_{S}(h) + \sqrt{\frac{1}{2m} \left(\ln \frac{1}{w(h)} + \ln \frac{2}{\delta} \right)}\\
+            \end{split}
+        \end{equation}
+
+        Now, using a theoretic techniques we can encode each tree predictor $h$ as a binary string $\sigma(h)$ of length $|\sigma(h)| = \mathcal{O}(N_h \log d)$. Thanks to Kraft inequality, we can associate a weight $w(h) = 2^{-|\sigma(h)|}$ to each tree predictor $h$ in order to get the bound shown at the beginning.\\ 
+\end{itemize}

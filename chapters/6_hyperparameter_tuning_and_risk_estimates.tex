@@ -1,0 +1,35 @@
+\newpage
+\section{Hyperparameter Tuning and Risk Estimates}
+
+\begin{itemize}
+    \item Write the formula for the K-fold cross validation estimate. Explain the main quantities occurring in the formula.\\
+
+        The K-fold cross validation estimate of $\mathbb{E}[\ell_{D}(A)]$ on $S$, denoted by $\ell_{S}^{CV}(A)$, is then computed as follows: we run $A$ on each training part $S_{-i}$ of the folds $i = 1, \dots, K$ and obtain the predictors $h_i = A(S_{-i}) \dots, h_K = A(S_{-K})$. We then compute the (rescaled) error on the testing part of each fold,
+        $$
+        \ell_{S_{i}}(h_i) = \frac{K}{m} \sum_{(\boldsymbol{x},y) \in S_{i}} \ell(h_i(\boldsymbol{x}), y)
+        $$
+        Finally, we compute the CV estimate by averaging these errors:
+        $$
+        \ell_{S}^{CV}(A) = \frac{1}{K} \sum_{i=1}^{K} \ell_{S_{i}}(h_i)
+        $$
+
+    \item Write the pseudo-code for computing the nested cross validation estimate.\\
+
+        \begin{algorithm}[H]
+            \SetAlgoLined
+            \DontPrintSemicolon
+            \caption{K-fold nested cross-validation}
+            \KwIn{Dataset $S$}
+            % \KwResult{$(\epsilon_1 + \dots + \epsilon_K) / K$}
+            Split $S$ into folds $S_1, \dots, S_K$\\
+            \For{$i = 1, \dots, K$}{
+                Compute training part of $i$-th fold: $S_{-i} \equiv S\ \backslash\  S_i$\\
+                Run CV on $S_{-i}$ for each $\theta \in \Theta_0$ and find $\theta_i = \underset{\theta \in \Theta_0}{\textmd{argmin}} \ell_{S_{-i}}^{CV}(A_{\theta})$\\
+                Re-train $A_{\theta_i}$ on $S_{-i}: h_i = A_{\theta_i}(S_{-i})$\\            
+                Compute error of $i$-th fold: $\epsilon_i = \ell_{S_i}(h_i)$\\
+            }
+            % \Return{$k$}
+            \KwOut{$(\epsilon_1 + \dots + \epsilon_K) / K$}
+        \end{algorithm}
+
+\end{itemize}

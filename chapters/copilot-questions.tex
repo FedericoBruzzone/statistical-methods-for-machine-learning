@@ -1,0 +1,67 @@
+\newpage
+\section{Copilot questions}
+
+\begin{itemize}
+    \item What is the mathematical definition of predictor?\\
+
+        A predictor is a function $f: \mathcal{X} \rightarrow \mathcal{Y}$ mapping data points to labels. Informally speaking, in a prediction problem is to learn a function $f$ that generate predictions $\hat{y} = f(\boldsymbol{x})$ such that $l(y, \hat{y})$ is small for most data points $\boldsymbol{x} \in \mathcal{X}$ observed in practice.\\
+
+    \item What is the difference between training error and test error?\\
+
+        The \textbf{training error} is the average loss on the training set: $$\frac{1}{n} \sum_{i=1}^n l(y_i, f(\boldsymbol{x}_i))$$\\
+        The \textbf{test error} is the average loss on the test set: $$\frac{1}{m} \sum_{i=1}^m l(y_i, f(\boldsymbol{x}_i))$$ 
+    
+    \item Write a short pseudo-code for the k-NN algorithm for binary classification.\\
+        
+        \begin{algorithm}[H]
+            \SetAlgoLined
+            \DontPrintSemicolon
+            \KwIn{$\mathcal{S} \equiv \left\{ (\boldsymbol{x}_{1}, y_{1}), \dots ,(\boldsymbol{x}_{d}, y_{d})\right\}$, $\boldsymbol{x} \in \mathbb{R}^d$, $k \in \mathbb{N}$}
+            \KwResult{$h_{NN}(\boldsymbol{x}) : \mathbb{R}^d \rightarrow \{-1, 1\}$}
+            % $D \gets \emptyset$\\
+            \For{$each\ sample\ \boldsymbol{x}$}{
+                $d(\boldsymbol{x}, \boldsymbol{x_{t}}) = ||\boldsymbol{x} - \boldsymbol{x_{t}}|| = \sqrt{\sum_{i=i}^{d} (x_{i} - x_{t,i})^2 } $ \tcp*{Euclidean distance}
+            }
+            $\mathcal{C}(\boldsymbol{x}) = \textmd{argmax}_{k}\sum_{\boldsymbol{x_{t}} \in S}\mathcal{C}(\boldsymbol{x_{t}}, y_{k})$
+            % \Return{$k$}
+            \caption{k-NN}
+        \end{algorithm}
+
+        $\mathcal{C}(\boldsymbol{x_{t}}, y_{k})$ indicates whether $\boldsymbol{x_{t}}$ belongs to class $y_{k}$.\\
+
+
+    \item Write a short pseudo-code of the predict function given a decision tree\\
+        
+        \begin{algorithm}[H]
+            \SetAlgoLined
+            \DontPrintSemicolon
+            \SetKwComment{Comment}{}{}
+            \KwIn{$\mathcal{S} \equiv \left\{ (\boldsymbol{x}_1, y_1), \dots ,(\boldsymbol{x}_d, y_d)\right\}$, $\boldsymbol{x} \in \mathbb{R}^d$, $r\ \textmd{root of}\ T$}
+            \KwResult{$h_{T}(\boldsymbol{x}) : \mathcal{X} \rightarrow \mathcal{Y}$}
+            $v \gets r$\\
+            \If{$v\ \textmd{is a leaf}\ \ell$} {                
+                \Return{$h_{T}(\boldsymbol{x}) = label\ y \in \mathcal{Y}\ associated\ with\ \ell$}
+            }
+            \If{$f: \mathcal{X}_i \rightarrow \{1, \dots, k\} \ \textmd{is the test associated with}\ v$} {                
+                $v \gets v_j$ such that $j = f(\boldsymbol{x}_i)$ and $v_j\ \textmd{denotes the \textit{j}-th child of v} $\\
+            }
+            Go to line 2
+            % \Return{$k$}
+            \caption{Predict function given a decision tree}
+        \end{algorithm}
+        If the computation of $h_T(\boldsymbol{x})$ terminates in leaf $\ell$, we say that the example x is routed to $\ell$. Hence $h_T(\boldsymbol{x})$ is always the label of the leaf to which $\boldsymbol{x}$ is routed.
+
+    \item What are the elements of a learning problem in statistical learning?\\
+
+        In statistical learning framework, we assume that every example $(\boldsymbol{x}, y)$ is obtained through an independent draw from a fixed but unknown probability distribution on $\mathcal{X} \times \mathcal{Y}$. We write $(\boldsymbol{X}, Y)$ to highlight that $\boldsymbol{x}$ and $y$ are a random variables.\\
+        In statistical learning, a problem is fully specified by a pair $(\mathcal{D}, \ell)$, where $\mathcal{D}$ is the data distribution and $\ell$ is the loss function.\\
+
+    \item Write the formula for statistical risk for the zero-one loss.\\
+
+        On binary classification, where $\mathcal{Y} = \{-1, +1\}$ . Let $\eta(\boldsymbol{x})$ be the probability of $Y = 1$ conditioned on $\textbf{X} = \boldsymbol{x}$. We view $\eta(\boldsymbol{x}) = \mathbb{P}(Y = +1\ |\ \textbf{X} = \boldsymbol{x})$ as the value on $\boldsymbol{x}$ of a function $\eta : \mathcal{X} \rightarrow [0,1]$.\\
+        Let $\mathbb{I}\{A\} \in \{0,1\}$ be the indicator function of the event $A$; that is, $\mathbb{I}\{A\} = 1$ if $A$ occurs and $\mathbb{I}\{A\} = 0$ otherwise.\\
+        The statistical risk with respect to the zero-one loss $\ell(y, \hat{y}) = \mathbb{I}\{y \neq \hat{y}\}$ is therefore defined by:
+        $$
+        \ell_{\mathcal{D}}(h) = \mathbb{E}[\mathbb{I}\{Y \neq h(\boldsymbol{X})\}] = \mathbb{P}(Y \neq h(\boldsymbol{X}))
+        $$
+\end{itemize}

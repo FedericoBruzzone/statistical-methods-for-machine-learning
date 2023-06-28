@@ -1,0 +1,77 @@
+\newpage
+\section{Online Gradient Descent}
+
+\begin{itemize}
+
+    \item Write the pseudo-code for the projected online gradient descent algorithm. 
+
+    \begin{algorithm}[H]
+        \SetAlgoLined
+        \DontPrintSemicolon
+        \caption{Projected Online Gradient Descent}
+        \KwIn{$\eta > 0$, $U > 0$}
+        $\boldsymbol{w}_i = 0$\\
+        \For{$t = 1, 2, \dots$}{
+            $\boldsymbol{w}'_{t+1} = \boldsymbol{w}_{t} - \frac{\eta}{\sqrt{t}}\nabla \ell_{t}(\boldsymbol{w}_{t})$\\ 
+            $\boldsymbol{w}_{t+1} = \underset{\boldsymbol{w} : \Vert \boldsymbol{w} \Vert \leq U}{\textmd{argmin}}\ \|\boldsymbol{w} - \boldsymbol{w}'_{t+1}\|$\\ 
+        }    
+        % \Return{$k$}
+    \end{algorithm}
+
+    \item Write the upper bound on the regret of projected online gradient descent on convex functions. Define the main quantities occurring in the bound.
+
+        $$
+        \underbrace{\frac{1}{T} \sum_{t=1}^{T} \ell_{t}(\boldsymbol{w}_{t})}_{\ell_T(\boldsymbol{w})} \leq \underbrace{\min_{\boldsymbol{u} : \Vert \boldsymbol{u} \Vert \leq U} \frac{1}{T} \sum_{t=1}^{T} \ell_{t}(\boldsymbol{u})}_{\ell_T(\boldsymbol{u})} + \underbrace{UG \sqrt{\frac{8}{T}}}_{R_T(\boldsymbol{u}) = Regret}
+        $$
+
+        \begin{itemize}
+            \item $\ell_T(\boldsymbol{w})$ is the average loss of the algorithm.
+            \item $\ell_T(\boldsymbol{u^*})$ is the average loss of the best fixed action.
+            \item $UG \sqrt{\frac{8}{T}}$ is the regret of the algorithm.
+        \end{itemize}
+        
+        $U$ maximum radius of the euclidean sphere.\\
+        $G$ is the bound on the norm of the gradient of the loss function, i.e. $\Vert \nabla \ell_{t}(\boldsymbol{w}_{t}) \Vert \leq G$ for all $t \leq T$.\\
+        $T$ is the number of epochs.\\
+
+    \item Write the upper bound on the regret of online gradient descent on $\sigma$-strongly convex functions. Define the main quantities occurring in the bound.
+
+        $$
+        \underbrace{\frac{1}{T} \sum_{t=1}^{T} \ell_{t}(\boldsymbol{w}_{t})}_{\ell_T(\boldsymbol{w})} \leq \underbrace{\min_{\boldsymbol{u} : \Vert \boldsymbol{u} \Vert \leq U} \frac{1}{T} \sum_{t=1}^{T} \ell_{t}(\boldsymbol{u})}_{\ell_T(\boldsymbol{u})} + \underbrace{\frac{G^2}{2\sigma} \frac{\ln({T + 1})}{T}}_{R_T(\boldsymbol{u}) = Regret}
+        $$
+
+        \begin{itemize}
+            \item $\ell_T(\boldsymbol{w})$ is the average loss of the algorithm.
+            \item $\ell_T(\boldsymbol{u^*})$ is the average loss of the best fixed action.
+            \item $\frac{G^2}{2\sigma} \frac{\ln({T + 1})}{T}$ is the regret of the algorithm.
+        \end{itemize}
+       
+        $\sigma$ is the strong convexity parameter and it must be $> 0$.\\
+        $G$ is the bound on the norm of the gradient of the loss function, i.e. $\underset{t}{\max} \Vert \nabla \ell_{t}(\boldsymbol{w}_{t}) \Vert \leq G$.\\
+        $\ln(T + 1)$ is the upper bound of harmonic series over $T$.\\
+        $T$ is the number of epochs.
+
+
+        \item Write the formula for the hinge loss.
+
+        $$
+        h_{t}(\boldsymbol{u}) = \max\{0, 1 - y_{t} \boldsymbol{u}^T \boldsymbol{x}_{t}\}
+        $$
+
+        The hinge loss is a convex function, but it is not $\sigma$-strongly convex and moreover it is not strictly convex.\\
+        The hinge loss is not differentiable, but it is sub-differentiable.\\
+
+        \item Write the mistake bound for the Perceptron run on an arbitrary data stream for binary classification. Define the main quantities occurring in the bound.
+        
+            $$
+            M \leq \sum_{t=1}^{T} h_{t}(\boldsymbol{u}) + (\Vert \boldsymbol{u} \Vert X)^2 + \Vert \boldsymbol{u} \Vert X \sqrt{\sum_{t=1}^{T}h_t (\boldsymbol{u})} \quad \text{for all}\ \boldsymbol{u} \in \mathbb{R}^d    
+            $$
+            
+            This shows a bound on the number of mistakes made by the Perceptron algorithm on any data sequence of arbitrary length $T$, including those sequences that are not linearly separable.\\
+           
+            $\boldsymbol{u}$ is not necessarily a separator, because we are not making any
+assumption on the stream.\\
+            $M$ is the number of mistakes made by the Perceptron algorithm.\\
+            $h_{t}(\boldsymbol{u})$ is the hinge loss at time $t$ for the weight vector $\boldsymbol{u}$. When the sequence is linearly seperable, then there exist $\boldsymbol{u} \in \mathbb{R}^d$ such that $y_{t} \boldsymbol{u}^T \boldsymbol{x}_{t} \geq 1$ for all $t \leq T$, which in turn implies that $h_{t}(\boldsymbol{u}) = 0$. Hence, the bound reduces to the Perceptron mistake theorem, i.e. $M \leq (\Vert \boldsymbol{u} \Vert X)^2$.\\
+            Concluding, $X$ is the maximum norm of the data points, i.e. $\Vert \boldsymbol{x}_{t} \Vert \leq X$ for all $t \leq T$.
+\end{itemize}

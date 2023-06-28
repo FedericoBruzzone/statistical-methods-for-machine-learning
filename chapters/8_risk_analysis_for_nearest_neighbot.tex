@@ -1,0 +1,24 @@
+\newpage
+\section{Risk analysis for nearest neighbor}
+
+\begin{itemize}
+
+    \item Write the bound on the risk of the 1-NN binary classifier under Lipschitz assumptions.\\
+
+        Recalling that the Bayes risk for the zero-one loss is $\ell_{\mathcal{D}}(f^*) = \mathbb{E}[\min{\{\eta(\boldsymbol{X}), 1 - \eta(\boldsymbol{X})\}}]$ we have
+        $$
+        \mathbb{E}[\ell_{\mathcal{D}}(h_{S})] \leq 2\ell_{\mathcal{D}}(f^*) + c\ \mathbb{E}\left[|| \boldsymbol{X} - \boldsymbol{X}_{\pi(S, \boldsymbol{X})} ||\right]
+        $$
+        
+        We may write:
+        \begin{equation}
+            \begin{aligned}
+                \mathbb{E}\left[|| \boldsymbol{X} - \boldsymbol{X}_{\pi(S, \boldsymbol{X})} ||\right] & \leq \epsilon \sqrt{d} + (2 \sqrt{d}) \sum_{i=0}^{r} \epsilon^{-p_{i}m}p_{i}\\
+                                                                                                      & \leq \epsilon \sqrt{d} + (2 \sqrt{d}) \frac{r}{em} && \text{Concave $g(p) = e^{-pm}p$ is maximized for $p = \frac{1}{m}$}\\ 
+                                                                                                      & \leq \sqrt{d} \left(\epsilon + \frac{2}{em} \left(\frac{2}{\epsilon}\right)^{d} \right) && \text{for $0 \leq \epsilon \leq 1$}\\
+                                                                                                      & \leq \sqrt{d} \ 4m^{\frac{-1}{(d+1)}} && \text{$\epsilon = 2 m^{\frac{-1}{(d+1)}}$ for curse of dimensionality}
+            \end{aligned}
+        \end{equation}
+
+        Note that for $m \rightarrow \infty, \ \ell_{D}(f^*) \leq \mathbb{E}[\ell_{\mathcal{D}}(h_{S})] \leq 2\ell_{D}(f^*)$. 
+\end{itemize}

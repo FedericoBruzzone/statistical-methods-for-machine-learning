@@ -1,0 +1,203 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e} %,noend
+
+
+% ===== Graph =====
+\usepackage{tikz}
+% ===== Multicol =====
+\usepackage{blindtext}
+\usepackage{multicol}
+% ===== Cancel =====
+\usepackage{cancel}
+% ===== Code =====
+\usepackage{listings} 
+\lstdefinestyle{mystyle}{
+    breakatwhitespace=false,                   
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=False,                  
+    tabsize=2
+}
+
+\usepackage{hyperref}
+
+\textwidth=450pt
+\oddsidemargin=0pt
+\textheight=665pt
+\voffset=-50pt
+
+\lstset{style=mystyle}
+
+\usepackage{setspace}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\singlespacing
+% ===================
+\mathtoolsset{showonlyrefs}  
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,      
+    urlcolor=black,
+}
+
+\AtBeginDocument{\renewcommand\proofname{Proof}}
+
+\newcommand{\pluseq}{\mathrel{{+}{=}}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% \title{Statistical Methods for Maching Learning}
+% \author{Federico Bruzzone \\ Andrea Longoni \\ Luca Bellani}
+% \date{}
+
+\makeindex
+\begin{document}
+
+% \maketitle
+
+
+\begin{titlepage}
+    \begin{center}
+        % \includegraphics[height=2.6cm]{minerva.pdf} %{Unilogo.png}
+        \includegraphics[height=5cm]{minerva.pdf} %{Unilogo.png}
+
+        \vspace*{1.75cm}
+
+        \LARGE
+        % \text{University of Milan}
+
+        % \vspace*{1cm}
+
+        \textbf{MSc in Computer Science} \\
+        at University of Milan
+
+        \vspace*{1cm}
+
+        
+        \huge
+        Statistical Methods for Machine Learning\\
+        
+        \large course held by \textbf{Nicoló Cesa-Bianchi}
+        
+
+        \normalsize
+        \vspace*{4cm}
+
+        \begin{minipage}[t]{0.47\textwidth}
+	       {Email: } \vspace{0.3em} \\
+              {\large \href{federico.bruzzone@studenti.unimi.it}{federico.bruzzone@studenti.unimi.it}} \vspace{1em}  \\
+              {\large \href{andrea.longoni3@studenti.unimi.it}{andrea.longoni3@studenti.unimi.it}} \vspace{1em}  \\
+              {\large \href{luca.bellani@studenti.unimi.it}{luca.bellani@studenti.unimi.it}} \vspace{1em}  \\
+        \end{minipage}
+        \hfill
+        \begin{minipage}[t]{0.47\textwidth}\raggedleft
+	       {Created by:} \hspace{-0.9em} \vspace{0.3em} \\
+              {\large \textbf{Federico Bruzzone}} \\
+              \vspace{1em}
+              {\large \textbf{Andrea Longoni}} \\
+              \vspace{1em}
+              {\large \textbf{Luca Bellani}} % \\
+              % {\footnotesize mat. 123456}
+        \end{minipage}
+
+        \vfill
+        Academic year of 2022/2023
+            
+    \end{center}
+\end{titlepage}
+
+\clearpage\null\newpage
+
+\newpage
+% \setlength{\parskip}{0.15em}
+\tableofcontents
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+
+\clearpage\null\newpage
+
+
+\newpage
+\input{chapters/1_introduction.tex}
+\input{chapters/2_nearest_neighbour.tex}
+\input{chapters/3_tree_predictors.tex}
+\input{chapters/4_statistical_learning.tex}
+\input{chapters/5_risk_analisys_for_tree_predictors.tex}
+\input{chapters/6_hyperparameter_tuning_and_risk_estimates.tex}
+\input{chapters/7_consistency_and_nonparametric_algorithms.tex}
+\input{chapters/8_risk_analysis_for_nearest_neighbot.tex}
+\input{chapters/9_linear_predictors.tex}
+\input{chapters/10_online_gradient_descent.tex}
+\input{chapters/11_kernel_functions.tex}
+\input{chapters/12_support_vector_machine.tex}
+\input{chapters/13_stability_and_risk_control_for_SVM.tex}
+\input{chapters/14_neural_networks_and_deep_learning.tex}
+\input{chapters/15_logistic_regression_surrogate_losses.tex}
+% \input{chapters/copilot-questions.tex}
+
+% \section{Test Graph}
+
+% \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}] 
+% \node[main] (1) {$x_1$}; 
+
+% \node[main] (2) [above right of=1] {$x_2$};
+% \node[main] (3) [below right of=1] {$x_3$}; 
+% \node[main] (4) [above right of=3] {$x_4$};
+% \node[main] (5) [above right of=4] {$x_5$}; 
+% \node[main] (6) [below right of=4] {$x_6$};
+
+% \draw (2) -- (4);
+% \draw[->] (1) -- (2);
+% \draw[->] (1) -- (3);
+
+% \draw (1) to (5);
+% \draw (1) to [out=135,in=90,looseness=1.5] (5);
+
+% \draw (1) to [out=180,in=270,looseness=5] (1);
+
+% \draw[->] (6) -- node[midway, above right, sloped, pos=1] {+1} (4);
+
+% \end{tikzpicture} 
+
+% \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}] 
+% \node[main] (1) {$x_1$}; 
+% \node[main] (2) [above right of=1] {$x_2$}; 
+% \node[main] (3) [below right of=1] {$x_3$}; 
+% \node[main] (4) [above right of=3] {$x_4$}; 
+% \node[main] (5) [above right of=4] {$x_5$}; 
+% \node[main] (6) [below right of=4] {$x_6$}; 
+% \draw[->] (1) -- (2); 
+% \draw[->] (1) -- (3); 
+% \draw (1) to [out=135,in=90,looseness=1.5] (5); 
+% \draw (1) to [out=180,in=270,looseness=5] (1); 
+% \draw (2) -- (4); 
+% \draw (3) -- (4); 
+% \draw (5) -- (4); 
+% \draw[->] (5) to [out=315, in=315, looseness=2.5] (3); 
+% \draw[->] (6) -- node[midway, above right, sloped, pos=1] {+1} (4); 
+% \end{tikzpicture} 
+
+\end{document}

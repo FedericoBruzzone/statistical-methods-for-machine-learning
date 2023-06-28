@@ -1,0 +1,34 @@
+\newpage
+\section{Neural Networks and Deep Learning}
+
+\begin{itemize}
+
+    \item Consider the class $\mathcal{F}_d$ of all functions of the form $f : \{-1, 1\}^d \rightarrow \{-1, 1\}$. Let $\mathcal{F}_{G,sgn}$ be the class of functions computed by a feedforward neural networks with the $sgn$ activation function and graph $G = (V, E)$. Provide asymptotic upper and lower bounds on $|V|$ such that $F_d \subseteq F_{G,sgn}$.\\ 
+
+        For every $d \in \mathbb{N}$, let $s(d)$ be the smallest integer such that there exists a graph $G = (V, E)$ with $|V| = s(d)$ for which $\mathcal{F}_{G, sgn}$ contains all functions of the form $f : \{-1, 1\}^d \rightarrow \{-1, 1\}$. Then $s(d) = \Omega(2^{d/3})$. A similar result holds when $sgn$ is repalced by the sigmoid function $\sigma(x) = \frac{1 - e^{-x}}{1 + e^{-x}} \in [-1,1]$.
+
+    \item Define a class of neural networks for which the ERM problem with the square loss is probably NP-hard.\\
+
+        For any integer $k \geq 2$, the problem
+    $$
+\min_{f \in F_{k, \sigma}} \ell_{S(f)} \text{ where } \ell_{S(f)} = \frac{1}{m} \sum_{t=1}^m (f(\boldsymbol{x})- y_t)^2
+    $$
+of minimizing the training error in $F_{k,\sigma}$ with respect to the square loss on a training set $S = \{(\boldsymbol{x}_1,y_1),\dots,(\boldsymbol{x}_m, y_m)\}$ is NP-hard. The problem remains NP-hard even where there exists $f \in F_{k,\sigma}$ such that $f(\boldsymbol{x}_t) = y_t$ for all $t=1,\dots,m$.
+
+    \item Write the update line of the stochastic gradient descent algorithm. Explain the main quantities.\\
+
+        Given a generic activation function $\sigma$, a directed acyclic graph $G$, a fixed differentiable loss function $\ell$, and a training set $S$ such that $|S| = m$, we write $\ell_t(\boldsymbol{w})$ to denote the loss $\ell (y_t, \hat{y}_t)$ where $\hat{y}_t = f_{G, W, \sigma} (\boldsymbol{x}_t)$. The update line of the stochastic gradient descentfor neural networks is:
+
+$$w_{i,j} \leftarrow w_{i,j} - \eta_t \frac{\partial \ell_{Z_t} (w)}{\partial w_{i,j}},\qquad (i,j) \in E.$$
+
+The main quantities occuring are:
+
+\begin{itemize}
+\item $\boldsymbol{w}$ represents the parameter vector of the neural network, which includes the weights associated with each edge in the graph $G$. The subscript $(i,j)$ denotes the weight associated with the edge connecting node $i$ to node $j$.
+\item $\eta_t$ is the learning rate at iteration $t$. It determines the step size or the rate at which the parameters are updated. It is typically a small positive constant.
+\item $\ell_{\boldsymbol{Z}_t}(\boldsymbol{w})$ represents the loss function $\ell(y_t, \hat{y}_t)$, where $y_t$ is the true label and $\hat{y}_t$ is the predicted label for the input $\boldsymbol{x}_t$ using the current parameters $\boldsymbol{w}$ where $\boldsymbol{Z}_t$ is the random training example. 
+\item $\frac{\partial \ell_{z_t} (\boldsymbol{w})}{\partial w_{i,j}}$ is the partial derivative of the loss function with respect to the weight $w_{i,j}$. It measures the sensitivity of the loss with respect to the corresponding weight in the network.
+\item $E$ represents the set of all edges in the directed acyclic graph $G$. The update is performed for each weight associated with an edge in the graph.
+\end{itemize}
+            
+\end{itemize}

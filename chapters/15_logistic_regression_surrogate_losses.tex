@@ -1,0 +1,33 @@
+\newpage
+\section{Logistic Regression and Surrogate Loss Function}
+
+\begin{itemize}
+
+    \item Write the definition of logistic loss for logistic regression with linear models.\\
+
+        The logistic loss for logistic regression is defined as
+        $$\ell(y, \hat{y}) = \log_2 (1+e^{-y\hat{y}}).$$
+        A particular case of logistic regression is the one in which the predictor $g(\boldsymbol{x})$ is a linear model $\boldsymbol{w}^\top \boldsymbol{x}$. Given a training set $S, |S|=m$, let 
+        $$\ell_t (\boldsymbol{w}) = \log_2 (1+e^{-y_t \boldsymbol{w}^\top \boldsymbol{x}_t})$$
+        To avoid overfitting, logistic regression is often used with a regularization term that enforces stability:
+        $$\ell_t (\boldsymbol{w}) = \log_2 (1+e^{-y_t \boldsymbol{w}^\top \boldsymbol{x}_t}) + \frac{\lambda}{2} \|\boldsymbol{w}\|^2.$$
+
+  \item Write the definition of consistency for surrogate losses.\\
+
+        A surrogate loss function $\ell$ is consistent if, for all $\boldsymbol{x} \in \mathcal{X}$,
+        $$\text{sgn} (g^*) = f^* \text{ for } g^*(\boldsymbol{x}) = \text{argmin}_{\hat{y} \in \mathbb{R}} \mathbb{E}[\ell(Y,\hat{y})|\boldsymbol{X} = \boldsymbol{x}].$$
+
+  \item Write a sufficient condition for consistency of a surrogate loss.\\
+
+        If a surrogate loss $\ell:\{-1,1\} \times \mathbb{R} \to \mathbb{R}$ is such that for all $y \in \{-1,1\}$ the derivative $\ell'(y,0)$ exists and satisfies $\ell'(y,0) < 0$, then $\ell$ is consistent.
+
+  \item Write the formula for Bayes optimal predictor and Bayes risk for the logistic loss.\\
+
+        The logistic loss is defined as $\ell(y, \hat{y}) = \log_2 (1 + e^{-y\hat{y}})$. The Bayes optimal predictor for the logistic loss, known also as log-odds ratio, is defined as:
+        $$g^*(\boldsymbol{x}) = \ln \frac{\eta(\boldsymbol{x})}{1-\eta(\boldsymbol{x})},$$
+        where $\eta(\boldsymbol{x}) = \mathbb{P} (Y=+1|\boldsymbol{X} = \boldsymbol{x})$.\\
+        The Bayes risk for the logistic loss, which is computed from the conditional Bayes risk, takes form:
+        $$\ell_D (g^*) = \mathbb{E}[\log_2(1+e^{-yg^*(\boldsymbol{x})})] = H(Y|\boldsymbol{X}),$$
+        where $H(Y|\boldsymbol{X})$ is known as conditional entropy of the label $Y$ given $X$.
+
+\end{itemize}

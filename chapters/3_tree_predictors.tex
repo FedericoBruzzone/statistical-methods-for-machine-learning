@@ -1,0 +1,40 @@
+\newpage
+\section{Tree predictors}
+
+\begin{itemize}
+    
+    \item Write a short pseudo-code for building a tree classifier based on a training set.\\
+       
+    We now describe a generic method to construct a binary tree given a training set $S$.\\
+    \begin{enumerate}
+    \item \textbf{Initialization}: Create $T$ with only the root $\ell$ and let $S_{\ell} = S$. Let the label associated with the root be the most frequent label in $S_{\ell}$. 
+    \item \textbf{Main loop}: Pick a leaf $\ell$ and replace it with an internal node $v$ creating two children $\ell^{'}$ and $\ell^{''}$. Pick an attribute $i$ and a test $f : \mathcal{X}_i \rightarrow \{1,2\}$. Associate the test $f$ with $v$ and partition $S_{\ell}$ in the two subsets\\
+        $$S_{\ell^{'}} = \{(\boldsymbol{x}_t, y_t) \in S_{\ell} : f(x_{t,i}) = 1\}\ \textmd{and}\ S_{\ell^{''}} = \{(\boldsymbol{x}_t, y_t)\in S_{\ell} : f(x_{t,i}) = 2\}$$ 
+    \end{enumerate}
+    Let the labels associated with $S_{\ell^{'}}$ and $S_{\ell^{''}}$ be the most frequent labels in $S_{\ell^{'}}$ and $S_{\ell^{''}}$ respectively.\\ 
+
+    \item What is the property of a splitting criterion $\psi$ ensuring that the training error of a tree classifier does not increase after a split? Bonus points if you justify your answer with a proof.\\
+
+        To answer this question is sufficient to observe that $\psi$ (i.e, $\psi(x) = \min{\{x, 1 - x\}}$) is a concave function.\\
+    We can then apply Jensen’s inequality, stating that $\psi(\alpha a + (1-\alpha)b) \geq \alpha\psi(a) + (1 - \alpha)\psi(b)$ for all $a,b \in \mathbb{R}$ and $\alpha \in [0,1]$.\\
+
+    Hence, via Jensen's inequality, we can study how the training error changes when $\ell$ is replaces by two new leaves $\ell^{'}$ and $\ell^{''}$.\\
+    
+    $$
+    \psi \left( \frac{N_{\ell}^+}{N_{\ell}}\right){N_{\ell}} = \psi \left( \frac{N_{\ell^{'}}^+}{N_{\ell^{'}}}\frac{N_{\ell^{'}}}{N_{\ell}} + \frac{N_{\ell^{''}}^+}{N_{\ell^{''}}}\frac{N_{\ell^{''}}}{N_{\ell}}\right){N_{\ell}} \geq \psi\left( \frac{N_{\ell^{'}}^+}{N_{\ell^{'}}}\right)\frac{N_{\ell^{'}}}{N_{\ell}}N_{\ell} + \psi\left( \frac{N_{\ell^{''}}^+}{N_{\ell^{''}}}\right)\frac{N_{\ell^{''}}}{N_{\ell}}N_{\ell}
+    $$
+
+    meaning that a split never increaseses the training error.\\
+
+    \item Write the formula for at least two splitting criteria $\psi$ used in practice to build tree classifiers.\\ 
+        
+        We use another type of splitting criterion $\psi$ because the one described in the previous question has strictly negative second derivative. Define $p, r, q$ where $p$ is the parent node, $r$ and $q$ are the children nodes, and they are on the same side with respect to the $\alpha$ and $p = \alpha r + (1 - \alpha)q$.\\
+        In this case, $\psi(p) - \alpha\psi(r) + (1 - \alpha)\psi(q) = 0$ beacuse $\psi$ is a straight line.\\
+
+        Some example of functions $\psi$ used in practice are 
+        \begin{enumerate}
+            \item \textbf{Gini function}: $\psi(p) = 2p(1-p)$
+            \item \textbf{Scaled entropy}: $\psi(p) = -\frac{p}{2}\log_2(p) - \frac{1-p}{2}\log_2(1-p)$
+            \item $\psi(p) = \sqrt{p(1-p)}$
+        \end{enumerate}
+\end{itemize}

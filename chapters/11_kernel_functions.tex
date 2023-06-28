@@ -1,0 +1,94 @@
+\newpage
+\section{Kernel Functions}
+
+\begin{itemize}
+    
+    \item Write the formula for the polynomial kernel of degree $n$.\\ 
+
+        The polynomial kernel $K_n(\boldsymbol{x}, \boldsymbol{x}')$ for all $n \in \mathbb{N}$ using Newton's binomial theorem, we can explicitly compute the map $\boldsymbol{\phi}_n$ such that $K_n(\boldsymbol{x}, \boldsymbol{x}') = \boldsymbol{\phi}_n(\boldsymbol{x})^\top \boldsymbol{\phi}_n(\boldsymbol{x}')$,
+        \begin{align*}
+            K_n(\boldsymbol{x}, \boldsymbol{x}') &= (\boldsymbol{x}^\top \boldsymbol{x}' + 1)^n \\
+                                                 &= \sum_{k=0}^n \binom{n}{k} (\boldsymbol{x}^\top \boldsymbol{x}')^k && \text{Newton's binomial theorem} \\
+        \end{align*}
+
+    \item Write the formula for the Gaussian kernel with parameter $\gamma$.\\
+
+        The Gaussian kernel $K_\gamma(\boldsymbol{x}, \boldsymbol{x}')$ for all $\gamma > 0$,
+        \begin{align*}
+            K_\gamma(\boldsymbol{x}, \boldsymbol{x}') &= \exp(-\frac{1}{2\gamma} \|\boldsymbol{x} - \boldsymbol{x}'\|^2) \quad \gamma > 0 \\
+        \end{align*}
+
+
+    \item Write the pseudo-code for the kernel Perceptron algorithm.\\
+
+
+        \begin{algorithm}[H]
+            \SetAlgoLined
+            \DontPrintSemicolon
+            \caption{Kernel Perceptron}
+            $S \leftarrow \emptyset$ \\
+            \For{$t = 1, 2, \dots$}{
+                Get next example $(\boldsymbol{x}_t, y_t)$ \\
+                Compute $\hat{y_t} = \text{sgn}\left(\sum_{s \in S}\ y_s K(\boldsymbol{x}_s, \boldsymbol{x}_t) \right)$ \\
+                \If{$\hat{y_t} \neq y_t$}{
+                    $S \leftarrow S \cup \{t\}$
+                }
+            }
+        \end{algorithm}
+
+    \item Write the mathematical definition of the linear space $\mathcal{H}_K$ of functions induced by a kernel $K$.\\
+
+    // Talking about the Hilbert space and complete inner vector space?
+
+    The linear space $\mathcal{H}_K$ of functions induced by a kernel $K$ is defined as
+    \begin{align*}
+        \mathcal{H}_K \equiv \left\{ \sum_{i=1}^N \alpha_i K(\boldsymbol{x}_i, \cdot) : \boldsymbol{x}_1, \dots, \boldsymbol{x}_N \in \mathcal{X}, \alpha_1, \dots, \alpha_N \in \mathbb{R}, N \in \mathbb{N} \right\}
+    \end{align*}
+
+\item Let $f$ be an element of the linear space $\mathcal{H}_K$ induced by a kernel $K$. Write $f(\boldsymbol{x})$ in terms of $K$.\\
+
+    An element $f \in \mathcal{H}_K$ is a function $f : \mathcal{X} \rightarrow \mathbb{R}$ such that 
+    $$
+    f(\boldsymbol{x}) = \sum_{i=1}^n \alpha_i K(\boldsymbol{x}_i, \boldsymbol{x})
+    $$ 
+    for some $\boldsymbol{x}_1, \dots, \boldsymbol{x}_N \in \mathcal{X}, \alpha_1, \dots, \alpha_N \in \mathbb{R}\ \text{and}\ N \in \mathbb{N}$
+    
+    \newpage
+    \item Write the mistake bound of the Perceptron convergence theorem when the Perceptron is run with a kernel $K$. Define the main quantities occurring in the bound.\\
+
+        Recall the bound on the number of mistakes provided by the Perceptron convergence theorem
+        $$
+        M \leq \Vert \boldsymbol{u} \Vert^2 \left(\underset{t}{\max} \ \Vert \boldsymbol{x}_t \Vert\right)^2 
+        $$
+        which holds for any $\boldsymbol{u} \in \mathbb{R}^d$ such that $y_t \boldsymbol{u}^\top \boldsymbol{x}_t > 1$ for all $t = 1, \dots, m$. 
+
+        In a generic \textit{reproducing kernel Hilbert space} $\mathcal{H}_K$, the linear separator $\boldsymbol{u}$ is some $g \in \mathcal{H}_K$ such that $y_t g(\boldsymbol{x}_t) > 1$ for all $t = 1, \dots, m$. The squared norm $\Vert \boldsymbol{x}_t \Vert^2 = \boldsymbol{x}_t^\top \boldsymbol{x}_t$ becomes $\Vert \phi_K(\boldsymbol{x}) \Vert^2_K = \left\langle K(\boldsymbol{x}, \cdot), K(\boldsymbol{x}, \cdot) \right\rangle_K = K(\boldsymbol{x}, \boldsymbol{x})$.
+        Finally, the squared norm $\Vert \boldsymbol{u} \Vert^2$ is replaced by $$
+        \Vert g \Vert^2_K = \left\Vert \sum_{i=1}^{N} \alpha_i K(\boldsymbol{x}_i, \cdot) \right\Vert^2_K = \left\langle \sum_{i=1}^{N} \alpha_i K(\boldsymbol{x}_i, \cdot), \sum_{j=1}^{N} \alpha_j K(\boldsymbol{x}_j, \cdot) \right\rangle_K = \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j K(\boldsymbol{x}_i, \boldsymbol{x}_j)
+    $$.
+
+    \item Write the mistake bound for the kernel Perceptron run on an arbitrary data stream for binary classification. Define the main quantities occurring in the bound.\\ 
+
+        Recall the bound on the number of mistakes provided by the for the Perceptron run on an arbitrary data stream for binary classification:
+        $$
+        M \leq \sum_{t=1}^{T} h_{t}(\boldsymbol{u}) + (\Vert \boldsymbol{u} \Vert X)^2 + \Vert \boldsymbol{u} \Vert X \sqrt{\sum_{t=1}^{T}h_t (\boldsymbol{u})} \quad \text{for all}\ \boldsymbol{u} \in \mathbb{R}^d    
+        $$
+
+        In a generic \textit{reproducing kernel Hilbert space} $\mathcal{H}_K$, the hyperplane $\boldsymbol{u}$ is some $g \in \mathcal{H}_K$. $X$ was the maximum norm of the examples, which becomes $\underset{t}{\max} \Vert \phi_K(\boldsymbol{x}_t) \Vert_K = \underset{t}{\max} \ K(\boldsymbol{x}_t, \cdot)$.
+
+
+    \item Write the closed-form formula (i.e., not the argmin definition) of the kernel version of the Ridge Regression predictor.\\
+        
+    Recall the closed-form formula for the Ridge Regression predictor    
+    $$ 
+    \boldsymbol{w} = \left(\alpha I + S^\top S\right)^{-1} S^\top \boldsymbol{y}
+    $$
+    where $S$ is the $m \times d$ matrix of the training examples and $\boldsymbol{y}$ is the vector of the labels. 
+
+    We can represent the ridge regression predictor in a generic \textit{reproducing kernel Hilbert space} $\mathcal{H}_K$ as by 
+    $$
+    \boldsymbol{y}^\top \left(\alpha I + \boldsymbol{K} \right)^{-1} \boldsymbol{k}(\cdot)
+    $$ 
+    where $\boldsymbol{K}$ is the $m \times m$ matrix with entries $\boldsymbol{K}_{i,j} = K(\boldsymbol{x}_i, \boldsymbol{x}_j)$ and $\boldsymbol{k}(\cdot)$ is the vector $\left(K(\boldsymbol{x}_1, \cdot), \dots, K(\boldsymbol{x}_m, \cdot)\right)$ of functions $K(\boldsymbol{x}_t, \cdot) = \langle \phi_K(\boldsymbol{x}_t) \rangle$.
+    Similarly to the non-kernel case, where the prediction on $\boldsymbol{x}$ is $\boldsymbol{w}^\top \boldsymbol{x}$, the prediction on $\phi_K(\boldsymbol{x})$ is $\langle g, \phi_K(\boldsymbol{x})\rangle_K$ which evaluates to $g(\boldsymbol{x}) = \boldsymbol{y}^\top \left(\alpha I + \boldsymbol{K} \right)^{-1} \boldsymbol{k}(\boldsymbol{x})$ where $\boldsymbol{k}(\boldsymbol{x}) = \left( K(\boldsymbol{x}_1,\boldsymbol{x}), \dots, K(\boldsymbol{x}_m, \boldsymbol{x}) \right)$.
+\end{itemize}

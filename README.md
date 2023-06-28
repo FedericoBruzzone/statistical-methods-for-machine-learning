@@ -1,6 +1,6 @@
 # Statistical Methods for Machine Learning Exam 
 
-**Disclaimer: We do not assume responsibility for the correctness of the answers.**
+**Disclaimer: My recommendation is to thoroughly study all the papers provided by the professor and carefully review the proofs before consulting this repository. We do not assume responsibility for the correctness of the answers.**
 
 This repository contains a LaTeX file that generates a PDF document comprising a comprehensive set of exam questions for the course "Statistical Methods for Machine Learning" taught by [Nicolo Cesa-Bianchi](https://cesa-bianchi.di.unimi.it/MSA/index_22-23.html). The PDF document includes both the questions and their corresponding answers. However, please note that we do not assume any responsibility for the correctness of the answers provided.
 
@@ -26,7 +26,7 @@ We wish you the best of luck with your exam preparation! However, please remembe
 
 ## License
 
-This repository is licensed under the [MIT License](insert license link here). Please review the license file for more information.
+This repository is licensed under the [GNU General Public License (GPL)](https://www.gnu.org/licenses/gpl-3.0.html). Please review the license file provided in the repository for more information regarding the terms and conditions of the GPL license.
 
 ## Contact
 

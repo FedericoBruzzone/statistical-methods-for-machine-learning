@@ -1,0 +1,31 @@
+\newpage
+\section{Stability and risk control for SVM}
+
+\begin{itemize}
+    
+    \item Write the definition of $\varepsilon$-stability for a learning algorithm\\
+
+    Let $\ell(h_{S}, \boldsymbol{Z}_t) = \ell(h_{S}(\boldsymbol{X}_t), Y_t)$ where $\boldsymbol{Z}_t = (\boldsymbol{X}_t, Y_t)$.\\
+        Assume that $S = S_m$ is a sample of $m$ examples $\boldsymbol{Z}_t = (\boldsymbol{X}_t, Y_t)$ independently drawn from a distribution $\mathcal{D}$ on $\mathcal{X} \times \mathcal{Y}$, and that $A$ is a learning algorithm. We use $S^{(t)}$ to denote $S$ where the $t$-th example $(\boldsymbol{X}_t, Y_t)$ is replaced by $\boldsymbol{Z}_t' = (\boldsymbol{X}_t', Y_t')$, also drawn from $\mathcal{D}$ independently of $S$.
+        
+        Let $A(S)$ and $A(S^{(t)})$ denote the output of $A$ on $S$ and $S^{(t)}$ respectively, we say that $A$ is $\varepsilon$-stable for a training set of size $m$ if, for each $t = 1, \dots, m$
+        \begin{equation}
+            \mathbb{E}\left[\ell(h_{S^{(t)}}, \boldsymbol{Z}_t) - \ell(h_{S}, \boldsymbol{Z}_t)\right] \leq \varepsilon
+        \end{equation}
+
+    \item Write the value of $\varepsilon$ for which SVM is known to be stable. The value depends on the radius $X$ of the ball where the training datapoints live, the training set size $m$, and the regularization coefficient $\lambda$.\\
+       
+        Kwnowing that:\\ 
+        \textit{Let $\ell$ be a loss function such that $\ell(\cdot, \boldsymbol{z})$ is convex, differentiable and Lipschitz with constant $L > 0$. Then the learning algorithm A such that}
+        $$
+        A(S) = \underset{\boldsymbol{w} \in \mathbb{R}^d}{\text{argmin}} \left( \ell_S(\boldsymbol{w}) + \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 \right)
+        $$
+    \textit{for all training sets $S$ of size $m$ is $\frac{(2L)^2}{\lambda m}$-stable for every $\lambda > 0$.}
+
+        The value of $\varepsilon$ for which SVM is known to be stable is $\frac{(4L^2)}{\lambda m}$, where $L = X$.\\       
+
+    \item Write the mathematical conditions on the regularization coefficient $\lambda$ ensuring consistency for the SVM algorithm wih Gaussian kernel.\\
+
+       Let $\lambda$ be chosen as a function $\lambda_m$ on the training set of size $m$, then the SVM algorithm with Gaussian kernel is consistent if, for $m \rightarrow \infty$, $\lambda_m$ must satisfy the following conditions: $\lambda_m = o(1)$ and $\lambda_m = \omega (m^{-1/2})$.
+
+\end{itemize}

@@ -1,0 +1,86 @@
+\newpage
+\section{Linear Predictor}
+
+\begin{itemize}
+
+    \item Can the ERM over linear classifiers be computed efficiently? Can it be approximated efficiently? Motivate your answers.\\
+       
+        $$
+        h_{S} = \underset{\boldsymbol{w} \in \mathbb{R}^d : \Vert \boldsymbol{w} \Vert = 1}{\text{argmin}} \frac{1}{m} \sum_{t=1}^{m} \mathbb{I}\{y_t \boldsymbol{w}^{\top}\boldsymbol{x}_t \leq 0\} \quad \text{(1)}
+        $$
+
+        Unfortunately, it is unlikely to find an efficient implementation of ERM for linear classifiers with zero-one loss because is NPO. In fact, the decision problem associated with finding $h_{S}$ is NP-complete even when $x_t \in \{0,1\}^d$ for $t = 1, \dots, m$.\\
+
+        \textit{If $P \neq NP$, then for all $C > 0$ there are no polynomial time algorithms approximately solve every instance $S$ of \textbf{Min Disagreement Optimization} with a number of missclassified examples bounded by $C \times OPT(S)$}.
+
+        This implies that, unless $P = NP$, there are no efficient algorithms that approximate the solution of (1) to within any constant factor. Here efficient means with running time polynomial in the input size $md$.\\
+        The ERM problem becomes easier when the training set is \textbf{linearly separable}.
+
+    \item Write the system of linear inequalities stating the condition of linear separability for a training set in binary classfication.\\
+
+        The ERM problem becomes easier to solve when the training set is \textbf{linearly separable}. A training set $(\boldsymbol{x}_1 , y_1 ), \dots, (\boldsymbol{x}_m , y_m)$ is linearly separable where there exists a linear classifier with zero training error. In other words, there exists a separating hyperplane $\boldsymbol{u} \in \mathbb{R}^d$ such that
+        $$
+        \gamma(\boldsymbol{u}) \overset{\text{def}}{=} \min_{t=1, \dots, m} y_t \boldsymbol{u}^{\top}\boldsymbol{x}_t > 0
+        $$ 
+
+        The quantity $\gamma(\boldsymbol{u})$ is known as the \textbf{margin} of $\boldsymbol{u}$ on the training set. The scaled margin $\gamma(\boldsymbol{u}) / \lVert\boldsymbol{u}\lVert$ measure the distance between the separating hyperplane and the closest training example.
+
+        We can write the condition of linear separability as a system of linear inequalities, and this solution can be found in polynomial time using an algorithm for linear programming.\\
+        $$
+        \begin{cases}
+            y_t\boldsymbol{u}^{\top}\boldsymbol{x}_t > 0 & \text{if } t = 1\\
+            \dots & \dots\\
+            y_t\boldsymbol{u}^{\top}\boldsymbol{x}_t > 0 & \text{if } t = m
+        \end{cases}
+        $$
+    
+    % \newpage
+    \item Write the pseudo-code for the Perceptron algorithm.\\
+
+        \begin{algorithm}[H]
+            \SetAlgoLined
+            \DontPrintSemicolon
+            \caption{The Perceptron algorithm}
+            \KwIn{Training set $(\boldsymbol{x}_1 , y_1 ), \dots, (\boldsymbol{x}_m , y_m)$}
+            $\boldsymbol{w} = (0, \dots, 0)$\\
+        \While{true} {  
+            \For(\tcp*[f]{(epoch)}){$i = 1, \dots, m$}{
+                \uIf{$y_i \boldsymbol{w}^{\top}\boldsymbol{x}_i \leq 0$}{
+                    $\boldsymbol{w} \leftarrow \boldsymbol{w} + y_i \boldsymbol{x}_i$ \tcp*[f]{(update)}\\ 
+                }    
+            }
+            \uIf{no update in last epoch} {
+                \textbf{break}
+            } 
+           }
+            % \Return{$k$}
+           \KwOut{$\boldsymbol{w}$}
+        \end{algorithm}
+
+    \item Write the statement of the Perceptron convergence theorem.
+    
+        \textit{Let $(\boldsymbol{x}_1 , y_1 ), \dots, (\boldsymbol{x}_m , y_m)$ be a linearly separable training set. Then the Perceptron algorithm returns a linear classifier with zero training error in a finite number of updates}
+        $$
+        \left(\underset{\boldsymbol{u} : \gamma(\boldsymbol{u}) \geq 1}{\min} \Vert \boldsymbol{u} \Vert^2 \right) \ \left( \underset{t = 1, \dots, m}{\max} \Vert \boldsymbol{x}_t \Vert^2 \right)
+        $$
+
+        The apparently stonger margin constraint $\gamma (\boldsymbol{u}) \geq 1$ is actually achievable by any separating hyperplane $\boldsymbol{u}$. Indeed, if $\gamma (\boldsymbol{u}) > 0$, $y_t\boldsymbol{u}^\top\boldsymbol{x}_t > \gamma (\boldsymbol{u})$ is equivalent to $y_t\boldsymbol{u}^\top\boldsymbol{x}_t > 1$ for $\boldsymbol{v} = \boldsymbol{u} / \gamma (\boldsymbol{u})$. Hence, $\gamma(\boldsymbol{u}) \geq 1$ can be achived by rescaling $\boldsymbol{u}$.
+         
+
+        After the proof of this theorem and finding the upper and lower bound we can bound the number of updates M:
+
+        $$
+        M \leq \Vert \boldsymbol{u} \Vert \left(\underset{t = 1, \dots, M}{\max} \Vert \boldsymbol{x}_t \Vert \right) \sqrt{M} 
+        $$
+
+    \item Write the closed-form formula (i.e., not the argmin definition) for the Ridge Regression predictor. Define the main quantities occurring in the formula.\\
+
+        The closed-form formula the Ridge Regression coefficients (predictor) is:
+        $$
+        \boldsymbol{w} = \boldsymbol{w}_{S, \alpha} = (S^{\top} S + \alpha I)^{-1}S^{\top}\boldsymbol{y}
+        $$
+   
+        where $S$ is the matrix of training examples of size $m \times d$ called \textbf{design matrix}, $\boldsymbol{y}$ is the vector of labels of size $m \times 1$, $\alpha$ is the regularization parameter or penalty factor that shrinks the regression coefficients towards zero and $\boldsymbol{w}$ is the vector of Ridge Regression coefficients of length $d$.\\
+
+
+\end{itemize}

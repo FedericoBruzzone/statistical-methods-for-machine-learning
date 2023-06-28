@@ -1,0 +1,70 @@
+\newpage
+\section{Support Vector Machine}
+
+\begin{itemize}
+    
+    \item Write the convex optimization problem with linear constraints that defines the SVM hyperplane in the linearly separable case.\\
+        
+        Given a linearly separable training set $S = \{(\boldsymbol{x}_1, y_1), \dots, (\boldsymbol{x}_n, y_n)\} \in \mathbb{R}^d \times \{-1, 1\}$, SVM outputs the linear classifier corresponding to the unique solution $\boldsymbol{w}^*$ of the following convex optimization problem with linear constraints:
+            \begin{align*} 
+                & \underset{\boldsymbol{w} \in \mathbb{R}^d}{\min} \ \frac{1}{2} \Vert \boldsymbol{w} \Vert^2 \\
+                & \text{s.t.} \ y_t \boldsymbol{w}^\top \boldsymbol{x}_t \geq 1 \ \text{for} \ t = 1, \dots, m 
+            \end{align*}
+
+            Geometrically, $\boldsymbol{w}^*$ corresponds to the \textbf{maximum margin separating hyperplane}. For every linearly separable set $S = \{(\boldsymbol{x}_1, y_1), \dots, (\boldsymbol{x}_n, y_n)\} \in \mathbb{R}^d \times \{-1, 1\}$, the maximum margin is defined as 
+            $$
+            \gamma^* = \underset{\boldsymbol{u} : \Vert \boldsymbol{u} \Vert = 1}{\max} \underset{t = 1, \dots, m}{\min} \ y_t \boldsymbol{u}^\top \boldsymbol{x}_t
+            $$ 
+
+            and the vector $\boldsymbol{u}^*$ achieving the maximum maring is the maximum margin separator.
+
+    \item Write the unconstrained optimization problem whose solution defines the SVM hyperplane when the training set is not necessarily linearly separable.\\
+
+        If we consider the case of a non-linearly separable training set, we should analyze how the SVM objective changes. Consider the following formulation
+        \begin{align*}
+            \underset{(\boldsymbol{w}, \boldsymbol{\xi}) \in \mathbb{R}^{d+m}}{\min} \quad & \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m \xi_t \\
+            \text{s.t.} \quad & y_t \boldsymbol{w}^\top \boldsymbol{x}_t \geq 1 - \xi_t & t = 1, \dots, m \\
+            & \xi_t \geq 0 \ \text{for} & t = 1, \dots, m
+        \end{align*}
+
+        The components of $\boldsymbol{\xi} = (\xi_1, \dots, \xi_m)$ are called \textbf{slack variables} and measure how each margin constraint is violated by a potential solution $\boldsymbol{w}$. Finally, a regularization parameter $\lambda > 0$ is introduced to balance the two terms.\\
+
+        We now consider the constraints involving the slack variables $\xi_t$. In oreder to minimize each $\xi_t$ we can set
+        
+        \begin{equation}
+            \xi_t =
+            \begin{cases}
+                1 - y_t \boldsymbol{w}^\top \boldsymbol{x}_t & \text{if} \ y_t \boldsymbol{w}^\top \boldsymbol{x}_t < 1 \\                
+                0 & \text{otherwise}
+            \end{cases}
+        \end{equation}
+        
+        Now, fix $\boldsymbol{w} \in \mathbb{R}^d$, we can see $\xi_t = \left[1 - y_t \boldsymbol{w}^\top \boldsymbol{x}_t \right]_+$ which is the hinge loss  $h_{t}(\boldsymbol{w})$.\\
+
+        The SVM problem can be rewritten as $$\underset{\boldsymbol{w} \in \mathbb{R}^d}{\min} \ \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m h_{t}(\boldsymbol{w})$$.\\
+
+
+    \newpage
+    \item Write the bound on the expected value of the SVM objective function achieved by Pegasos.
+Provide also a bound on the expected squared norm of the loss gradient.\\
+        
+        $$
+        \mathbb{E}\left[F(\bar{\boldsymbol{w}})\right] \leq F(\boldsymbol{w}^*) + \frac{\mathbb{E}\left[G^2\right]}{2 \lambda T} (\ln T + 1)
+        $$
+            
+        where:
+        \begin{itemize}
+            \item $F(\boldsymbol{w}) = \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m h_{t}(\boldsymbol{w})$ is the SVM objective function, where $h_{t}(\boldsymbol{w}) = \left[1 - y_t \boldsymbol{w}^\top \boldsymbol{x}_t \right]_+$ is the hinge loss.
+            \item $\bar{\boldsymbol{w}} = \frac{1}{T} \sum_{t = 1}^T \boldsymbol{w}_t$ is the average of the iterates
+            \item $\boldsymbol{w}^* = \underset{\boldsymbol{w} \in \mathbb{R}^d}{\text{argmin}} (F(\boldsymbol{w}))$ is the optimal solution of the SVM problem
+            \item $G = \underset{t=1,\dots,T}{\max} \Vert \nabla \ell_{s_t}(\boldsymbol{w}_t) \Vert$ is the norm of the loss gradient            
+            \item $\lambda > 0$ is the regularization parameter
+            \item $T$ is the number of iterations
+        \end{itemize}
+        
+        We can bound $G$ bounding the norm of the loss gradient in the following way: $\Vert \nabla \ell_t(\boldsymbol{w}_t) \Vert \leq X + \lambda \Vert \boldsymbol{w}_t \Vert \leq 2X$ where $X = \max_{t = 1, \dots, m} \Vert \boldsymbol{x}_t \Vert$ is the maximum norm of the training examples.
+
+        $$
+    \mathbb{E}\left[F(\bar{\boldsymbol{w}})\right] \leq F(\boldsymbol{w}^*) + \frac{2 X^2}{\lambda T} (\ln T + 1)
+        $$
+\end{itemize}
