@@ -1,13 +1,8 @@
 # Statistical Methods for Machine Learning
 
-**Disclaimer: My recommendation is to thoroughly study all the papers provided by the professor and carefully review the proofs before consulting this repository. We do not assume responsibility for the correctness of the answers.**
+**Disclaimer: My recommendation is to thoroughly study all the papers provided by the professor and carefully review the proofs before consulting this repository.**
 
 This repository contains a LaTeX file that generates a PDF document comprising a comprehensive set of exam questions for the course "Statistical Methods for Machine Learning" taught by [Nicolo Cesa-Bianchi](https://cesa-bianchi.di.unimi.it/MSA/index_22-23.html). The PDF document includes both the questions and their corresponding answers. However, please note that we do not assume any responsibility for the correctness of the answers provided.
-
-The exam questions cover various statistical methods and concepts relevant to machine learning. This resource serves as a valuable tool for exam preparation, allowing you to assess your understanding of statistical techniques in the context of machine learning.
-
-# Exam Questions PDF
-The main resource provided in this repository is the PDF document generated from the LaTeX file. You can find the PDF file named "statistical-methods-for-machine-learning.pdf". It contains a series of exam questions along with their respective answers. Please remember that while we have made efforts to ensure the accuracy of the answers, we do not guarantee their correctness.
 
 # Using the Exam Questions
 To make the most of these exam questions, you can:
