@@ -2,14 +2,7 @@
 
 **Disclaimer: My recommendation is to thoroughly study all the papers provided by the professor and carefully review the proofs before consulting this repository.**
 
-This repository contains a LaTeX file that generates a PDF document comprising a comprehensive set of exam questions for the course "Statistical Methods for Machine Learning" taught by [Nicolo Cesa-Bianchi](https://cesa-bianchi.di.unimi.it/MSA/index_22-23.html). The PDF document includes both the questions and their corresponding answers. However, please note that we do not assume any responsibility for the correctness of the answers provided.
-
-# Using the Exam Questions
-To make the most of these exam questions, you can:
-
-1. Download the PDF document to your local machine.
-2. Print the PDF for offline studying or use a PDF viewer of your choice to read it digitally.
-3. Review the questions and study the provided answers. However, it is essential to independently verify the correctness of the answers and consult additional resources if needed.
+This repository contains rates a comprehensive set of exam questions for the course "Statistical Methods for Machine Learning" taught by [Nicolo Cesa-Bianchi](https://cesa-bianchi.di.unimi.it/MSA/index_22-23.html). The PDF document includes both the questions and their corresponding answers. However, please note that we do not assume any responsibility for the correctness of the answers provided.
 
 # Contributing
 If you notice any errors, typos, or have suggestions for improving the exam questions or answers, we welcome your contributions. You can open an issue or submit a pull request with your proposed changes. Together, we can enhance the quality and usefulness of this resource for future learners.
