@@ -30,8 +30,9 @@ distribution $D$ it holds that
 
     \item Write the mathematical conditions on $k$ ensuring consistency for the $k$-NN algorithm.\\
 
-        We let $k$ be chosen as a function $k_m$ of the training set size, then the algorithm becomes consistent provided $k_m \rightarrow \infty$ and $k_m = o(m)$.\\
-        
+    We let $k$ be chosen as a function $k_m$ of the training set size, then the algorithm becomes consistent provided $k_m \rightarrow \infty$ and $k_m = o(m)$.\\
+    Two possible example are $k_m = \sqrt{m}$ and $k_m = \log{m}$\\
+
     \item Write the formula for the Lipschitz condition in a binary classification problem. Define the main quantities occurring in the formula.\\
 
         In some cases, we may define consistency with respect to a restricted class of distributions $\mathcal{D}$. For example, in binary classification we may restrict to all distribution $\mathcal{D}$ such that $\eta(\boldsymbol{x}) = \mathbb{P}(Y = 1 | \boldsymbol{X} = \boldsymbol{x})$ is Lipschitz function on $\mathcal{X}$. Formally, there exists $0 < c < \infty$ such that

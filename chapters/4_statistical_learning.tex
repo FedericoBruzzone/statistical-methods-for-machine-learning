@@ -64,7 +64,7 @@
             \end{split}
         \end{equation}
         The Bayes optimal prediction for the quadratic loss function is the expected value of the label conditioned on the instance.\\
-        Substituting in the conditional risk formula $\ell_{\mathcal{D}}(h) = \mathbb{E}[(Y - f^{*}(\boldsymbol{X}))^{2}\ |\ \boldsymbol{X} = \boldsymbol{x}]$ the Bayes optimal predictor $f^{*}(\boldsymbol{x}) = \mathbb{E}[Y\ |\ \boldsymbol{X} = \boldsymbol{x}]$ we obtain:
+        Substituting in the conditional risk formula $\ell_{\mathcal{D}}(f^{*}) = \mathbb{E}[(Y - f^{*}(\boldsymbol{X}))^{2}\ |\ \boldsymbol{X} = \boldsymbol{x}]$ the Bayes optimal predictor $f^{*}(\boldsymbol{x}) = \mathbb{E}[Y\ |\ \boldsymbol{X} = \boldsymbol{x}]$ we obtain:
         $$
         \mathbb{E}[(Y - f^{*}(\boldsymbol{X}))^{2}\ |\ \boldsymbol{X} = \boldsymbol{x}] = \mathbb{E}[(Y - \mathbb{E}[Y\ |\ \boldsymbol{x}])^{2}\ |\ \boldsymbol{X} = \boldsymbol{x}] = \textmd{Var}[Y\ |\ \boldsymbol{X} = \boldsymbol{x}]
         $$
