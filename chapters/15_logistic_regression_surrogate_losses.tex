@@ -17,6 +17,11 @@
         A surrogate loss function $\ell$ is consistent if, for all $\boldsymbol{x} \in \mathcal{X}$,
         $$\text{sgn} (g^*) = f^* \text{ for } g^*(\boldsymbol{x}) = \text{argmin}_{\hat{y} \in \mathbb{R}} \mathbb{E}[\ell(Y,\hat{y})|\boldsymbol{X} = \boldsymbol{x}].$$
 
+  \item Define the surrogate losses used by SVM and AdaBoost.\\
+
+        SVM and AdaBoost both use a surrogate loss that is a convex upper bound for the 0-1 loss.\\
+        Support vector machines uses the hinge loss: $$l(y, \hat{y}) = \max\{0, 1 - y_t \hat{y}\}$$ while AdaBoost uses the Boosting loss: $$l(y, \hat{y}) = e^{-y\hat{y}}$$
+
   \item Write a sufficient condition for consistency of a surrogate loss.\\
 
         If a surrogate loss $\ell:\{-1,1\} \times \mathbb{R} \to \mathbb{R}$ is such that for all $y \in \{-1,1\}$ the derivative $\ell'(y,0)$ exists and satisfies $\ell'(y,0) < 0$, then $\ell$ is consistent.

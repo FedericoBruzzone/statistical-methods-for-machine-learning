@@ -1,0 +1,57 @@
+\newpage
+\section{Boosting and ensemble methods}
+
+\begin{itemize}
+
+    \item Explain how the Bagging Algorithm works.\\
+
+    Fix a training set $S = \{(x_1 , y_1),\dots,(x_m , y_m)\}$ of size $m$ for a binary classification problem with zero-one loss, and 
+    assume an ensemble of classifiers $h_1, \dots , h_T$ is available.\\
+    Consider the majority classifier $f$ defined by $$f(x) = sgn(\sum_{i=1}^{T} {h_i(x)})$$
+    If the training error of each classifier $l_s(h_i)$ in the ensemble is indipendent from each other we can achive a training error on $f$ that decreases exponentially in $T\gamma^2$ (Look at the next question).\\
+    Bagging is an heuristic that applies to any learning algorithm for binary classification A.\\ 
+    Bagging creates $T$ variants of the training set $S$: $S_1, S_2, \dots S_T$ sampling $m$ data points uniformly at random for each of them.\\
+    For each training set just constructed Bagging creates a classifier $h_i = A(S_i)$.\\
+    The idea is that the resampling procedure helps enforce the condition of training errors indipendece.\\
+
+    \item Write the upper bound on the training error achieved by Bagging when the errors of the classifiers are independent. Define the main quantities occurring in the bound.\\
+
+        When the tranining errors of the classifiers are indipendent Bagging obtains an upper bound on the majority vote classifier of:
+        $$l_s(f) \leq e^{-2T\gamma^2}$$
+        Where
+        \begin{itemize}
+            \item $l_s(f)$ is the training error for the classifier $f$ on the training set $S = \{(x_1 , y_1),\dots,(x_m , y_m)\}$.\\
+            \item $T$ is the number of classifiers in the ensemble.\\
+            \item $\gamma = min_{i=1 \dots T} \gamma_i$ where  $\gamma_i = \frac{1}{2} - l_s(h_i)$ or intuitively how much better each predictor $h_i$ respect to the random one.\\
+        \end{itemize}
+        
+    \item Explain how the AdaBoost algorithm works  .\\
+        
+        // TODO:
+        
+    \item Write the upper bound on the training error achieved by AdaBoost. Define the main quantities occurring in the bound.\\
+        
+        AdaBoost can achieve a bound on the training error of $$l_s(f) \leq e^{-2T\gamma^2}$$ like Bagging, but differently from it AdaBoost doesn't 
+        require the predictors in the ensemble to have indipendent training errors. 
+        Recall that 
+        \begin{itemize}
+            \item $l_s(f)$ is the training error for the classifier $f$ on the training set $S = \{(x_1 , y_1),\dots,(x_m , y_m)\}$.\\
+            \item $T$ is the number of classifiers in the ensemble.\\
+            \item $\gamma = min_{i=1 \dots T} \gamma_i$ where  $\gamma_i = \frac{1}{2} - l_s(h_i)$ so how much better each predictor $h_i$ respect to the random one.\\
+        \end{itemize}
+        
+    \item How many rounds of AdaBoost are sufficient to achieve zero training error under the condition $|\gamma_i| \geq \gamma$ for all $i$?\\
+        
+        Note that is not possible to achieve a training error $l_s(f) < \frac{1}{m}$ unless $l_s(f) = 0$.\\
+        Recall the bound $$l_s(f) \leq e^{-2T\gamma^2}$$ on the training error for AdaBoost (where $T$ is the numer of round and $\gamma_i$ how better 
+        each predictor $h_i$ performs compared to the random one), 
+        if $l_s(f) = 0$ we can write $$\frac{1}{m} < e^{-2T\gamma^2}$$
+        Solving for T we have
+        $$\ln{\frac{1}{m}} < -2T\gamma^2$$
+        $$\ln(m) > 2T\gamma^2$$
+        $$T < \frac{\ln(m)}{2\gamma^2}$$
+
+        So $\frac{\ln(m)}{2\gamma^2}$ rounds of AdaBoost are sufficent to achive zero training error.
+        
+    \end{itemize}
+    
