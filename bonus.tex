@@ -190,7 +190,7 @@ As we did for the Perceptron, we can run Pegasos in $H_K$. The gradient update i
 g_{t+1} = \left(1 - \frac{1}{t}\right) g_t + \frac{y_{st}}{\lambda_t} \mathbf{I}_{\{h_{st}(g_t) > 0\}} K(x_{st}, \cdot),
 \].
     \item \textbf{[13] - What does it mean for an algorithm to be $\gamma-ERM$?}\\
-    \[l_S (h_S) \inf_{h \in H}l_S (h) + \gamma\]
+    \[l_S (h_S) \leq \inf_{h \in H}l_S (h) + \gamma\]
     \item \textbf{[14] - Write the gradient update of the weights of a feedforward neural network with error backpropagation}\\
     \[\delta_j = \frac{\partial\ell_t(W)}{\partial s_j} \\
     = \begin{cases}
