@@ -24,10 +24,35 @@
             \item $T$ is the number of classifiers in the ensemble.\\
             \item $\gamma = min_{i=1 \dots T} \gamma_i$ where  $\gamma_i = \frac{1}{2} - l_s(h_i)$ or intuitively how much better each predictor $h_i$ respect to the random one.\\
         \end{itemize}
-        
+    
+    \newpage
     \item Explain how the AdaBoost algorithm works  .\\
         
-        // TODO:
+        \begin{algorithm}[H]
+            \SetAlgoLined
+            \DontPrintSemicolon
+            \caption{AdaBoost}
+            \KwIn{Training set $S = (\boldsymbol{x}_1 , y_1 ), \dots, (\boldsymbol{x}_m , y_m)$,\\ A learning Algorithm $A$,\\ Maximum number of rounds of boosting $T$}
+            $\mathbb{P}_1(t) \leftarrow \frac{1}{m}$ for all $t = 1 \dots m$\\
+            \For{$i = 1, \dots, T$}{
+                1) create a predictor $h_i$ with the algorithm $A$ using the training set $S$ weighted by $\mathbb{P}_i$\\
+                2) compute the error $\varepsilon_i$ for $h_i$\\
+                3) \uIf{$\varepsilon_i \in {1, 1/2, 0}$} {
+                    \textbf{break}
+                } 
+                4) compute the weight $w_i = \frac{1}{2} \ln(\frac{1 - \varepsilon_i}{\varepsilon_i})$\\
+                5) compute the probability for the next predictor $\mathbb{P}_{i+1}(t) = \frac{\mathbb{P}_i(t) e^{-w_i L_i(t)}}{\mathbb{E}_i\left[e^{w_i L_i(Z_i)}\right]}$ for all $t=1 \dots m$\\    
+            }
+            \uIf{exit on error break} {
+                Deal with the special case: if is either 0 or 1 return $h_i$ or $-h_i$ because they alone can zeroing the training set.\\
+                Otherwise the boosting procedure is stuck beacuse it reach a point where it cannot improve the learning algorithm anymore.\\
+            } 
+        \uElse output {$f = sgn(\sum_{i=1}^T w_i h_i$})
+        \end{algorithm}
+
+        Where the in point 5) the expectation is regard to the random draw of an index of the training sample $Z_i$.\\ 
+        Boosting can be seen as a sequence of round where the booster give $\mathbb{P}_i$ to the algorithm $A$ and receive a predictor $h_i$ in response.\\
+        Note that when we are calculating the weight $w_i$ if $\varepsilon_i \geq \frac{1}{2}$ the log is negative and so we are assigning a negative weight to that predictor (we are flipping his prediction).\\ 
         
     \item Write the upper bound on the training error achieved by AdaBoost. Define the main quantities occurring in the bound.\\
         
@@ -45,11 +70,11 @@
         Note that is not possible to achieve a training error $l_s(f) < \frac{1}{m}$ unless $l_s(f) = 0$.\\
         Recall the bound $$l_s(f) \leq e^{-2T\gamma^2}$$ on the training error for AdaBoost (where $T$ is the numer of round and $\gamma_i$ how better 
         each predictor $h_i$ performs compared to the random one), 
-        if $l_s(f) = 0$ we can write $$\frac{1}{m} < e^{-2T\gamma^2}$$
+        if $l_s(f) = 0$ we can write $$e^{-2T\gamma^2} < \frac{1}{m}$$
         Solving for T we have
-        $$\ln{\frac{1}{m}} < -2T\gamma^2$$
-        $$\ln(m) > 2T\gamma^2$$
-        $$T < \frac{\ln(m)}{2\gamma^2}$$
+        $$-2T\gamma^2 < \ln{\frac{1}{m}}$$
+        $$2T\gamma^2 > \ln(m)$$
+        $$T > \frac{\ln(m)}{2\gamma^2}$$
 
         So $\frac{\ln(m)}{2\gamma^2}$ rounds of AdaBoost are sufficent to achive zero training error.
         

@@ -43,8 +43,19 @@
 
         The SVM problem can be rewritten as $$\underset{\boldsymbol{w} \in \mathbb{R}^d}{\min} \ \frac{\lambda}{2} \Vert \boldsymbol{w} \Vert^2 + \frac{1}{m} \sum_{t = 1}^m h_{t}(\boldsymbol{w})$$.\\
 
-
     \newpage
+    \item Write the update rule of Pegasos.\\
+        
+        Given $Z_t = (X_t, Y_t)$ a random sample from the training set, the update rule for Pegasos is:\\
+        $$\boldsymbol{w}_{t+1} = \boldsymbol{w}_t - \eta_t \nabla\ell_{Z_t}(w_t)$$
+
+        Let be $s_t$ the realization for the random variable $Z_t$\\ 
+        Where $\ell_{s_t}(w) = \left[1 - y_{s_t} \boldsymbol{w}^T x_{s_t}\right]_+ + \frac{\lambda}{2} ||w||^2$ so
+        $$\nabla\ell_{s_t}(w) = -y_{s_t} x_{s_t} \mathbb{I}\{h_{s_t}(\boldsymbol{w}) > 0\} + \lambda w $$
+        Let $\boldsymbol{v_t} = y_t x_t I\{h_t(\boldsymbol{w_t}) > 0\}$ and choosing $\eta_t = \frac{1}{\lambda t}$ we have
+        $$\boldsymbol{w}_{t+1} = \boldsymbol{w}_t (1 - \frac{1}{t}) + \frac{1}{\lambda t} \boldsymbol{v_t}$$
+
+
     \item Write the bound on the expected value of the SVM objective function achieved by Pegasos.
 Provide also a bound on the expected squared norm of the loss gradient.\\
         

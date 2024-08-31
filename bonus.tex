@@ -156,6 +156,22 @@ The number in the square brackets like \textbf{[1]} indicate the chapter number 
     The risk of a non consistent algorithm would converge faster than the risk of a consistent algorithm, indeed the rate of convergency would be $m^{-\frac{1}{2}}$ but it would not tend the Bayes risk.
     \item \textbf{[7] - Consistency for greedy algorithm for building trees}\\
     In order for the greedy algorithm for building trees to be consistent the diameter of the leaf region tends to zero and the number of observations routed to each leaf tends to $\infty$ as $m \xrightarrow{\infty}$. That means that the tree must grow unboundedly but not too fast.
+    \item \textbf{[7] - If the Bayes risk is zero, could the risk of 1-NN for binary classification be consistent?}\\
+    In case the Bayes risk is zero the risk of 1-NN binary classification can be consistent only under Lipschitz assumption.\\
+    Recall the definition of consistency:
+    $$\lim_{m \to \infty} \mathbb{E} \left[ \ell_{\mathcal{D}}(A(S)) \right] = \ell_{\mathcal{D}}(f^*)$$
+    And the bound for the expected risk of 1-NN on a random training set under assumnption of c-Lipschitz continuity for the function $\eta(x) = \mathbb{P}(Y=1 | X = x)$:\\
+    $$
+    \mathbb{E}[\ell_{\mathcal{D}}(h_{S})] \leq 2\ell_{\mathcal{D}}(f^*) + c\ \sqrt{d} \ 4m^{\frac{-1}{(d+1)}}
+    $$
+    We can see that if $\ell_{\mathcal{D}}(f^*) = 0$ we have:
+    $$
+    \mathbb{E}[\ell_{\mathcal{D}}(h_{S})] \leq c\ \sqrt{d} \ 4m^{\frac{-1}{(d+1)}}
+    $$
+    That for consistency means
+    $$\lim_{m \to \infty} \mathbb{E} \left[ \ell_{\mathcal{D}}(A(S)) \right] = 0$$
+    $$\lim_{m \to \infty} c\ \sqrt{d} \ 4m^{\frac{-1}{(d+1)}} = 0$$
+    That's clearly true\\
     \item \textbf{[9] - Why do I need to add a constant feature to the training set when training linear predictors?}\\
     Because it is computationally more efficient to learn only a vector $\vec{v} = (\vec{w},  c)$ instead of a vector $\vec{w}$ and a scalar $c$. in particular, for $x' = (\vec{x}, 1)$, the prediction becomes: \[w^\top x + c = v^\top x'\]
     \item \textbf{[9] - Write the mathematical definition of margin of an hyperplane on a training set}\\
